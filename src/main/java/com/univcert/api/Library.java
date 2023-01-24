@@ -21,13 +21,12 @@ public class Library {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postObj.toJSONString());
         builder.post(requestBody);
         Request request = builder.build();
-        // OkHttp 클라이언트로 GET 요청 객체 전송
+
         Response response = client.newCall(request).execute();
         if (response.isSuccessful() || response.code()==400) {
-            // 응답 받아서 처리
             ResponseBody body = response.body();
             if (body != null) {
-                System.out.println("Response:" + body.string());
+                System.out.println("응답:" + body.string());
             }
         }
         else

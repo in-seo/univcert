@@ -5,10 +5,10 @@ import org.json.simple.JSONObject;
 
 import java.io.IOException;
 
-public class Library {
+public class UnivCert {
     private static String baseURL = "https://univcert.com/api";
     private static OkHttpClient client = new OkHttpClient();
-    protected Library() {}
+    protected UnivCert() {}
 
     public static void getDomain(String email, String universityName) throws IOException {
         String url = baseURL + "/try";

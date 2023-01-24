@@ -2,15 +2,18 @@ package com.univcert.api;
 
 import com.squareup.okhttp.*;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
 public class UnivCert {
     private static String baseURL = "https://univcert.com/api";
     private static OkHttpClient client = new OkHttpClient();
+    private static JSONParser parser = new JSONParser();
     protected UnivCert() {}
 
-    public static void getDomain(String email, String universityName) throws IOException {
+    public static String checkDomain(String email, String universityName) throws IOException, ParseException {
         String url = baseURL + "/try";
         Request.Builder builder = new Request.Builder().url(url).get();
 
@@ -22,15 +25,22 @@ public class UnivCert {
         builder.post(requestBody);
         Request request = builder.build();
 
-        Response response = client.newCall(request).execute();
-        if (response.isSuccessful() || response.code()==400) {
-            ResponseBody body = response.body();
-            if (body != null) {
-                System.out.println("응답:" + body.string());
-            }
+        Response responseHTML = client.newCall(request).execute();
+        
+        if (responseHTML.isSuccessful() || responseHTML.code()==400)
+            return parseHTMLToJSON(responseHTML);
+
+        return "";
+    }
+
+    private static String parseHTMLToJSON(Response responseHTML) throws ParseException, IOException {
+        ResponseBody body = responseHTML.body();
+        if (body != null) {
+            JSONObject response = (JSONObject) parser.parse(body.string());
+            response.put("code", responseHTML.code());
+            return response.toJSONString();
         }
-        else
-            System.err.println("Error Occurred");
+        return "";
     }
 }
 

@@ -37,7 +37,7 @@ public class UnivCert {
     }
 
     public static Map<String, Object> certify(String API_KEY, String email, String universityName, boolean univ_check) throws IOException, ParseException {
-        String url = baseURL + "/certify";
+        String url = baseURL + "/v1/certify";
         Request.Builder builder = new Request.Builder().url(url).get();
 
         JSONObject postObj = new JSONObject();
@@ -59,7 +59,7 @@ public class UnivCert {
     }
 
     public static Map<String, Object> certifyCode(String API_KEY, String email, String universityName, int code) throws IOException, ParseException {
-        String url = baseURL + "/certify";
+        String url = baseURL + "/v1/certifycode";
         Request.Builder builder = new Request.Builder().url(url).get();
 
         JSONObject postObj = new JSONObject();
@@ -81,7 +81,7 @@ public class UnivCert {
     }
 
     public static Map<String, Object> status(String API_KEY, String email) throws IOException, ParseException {
-        String url = baseURL + "/status";
+        String url = baseURL + "/v1/status";
         Request.Builder builder = new Request.Builder().url(url).get();
 
         JSONObject postObj = new JSONObject();
@@ -101,7 +101,7 @@ public class UnivCert {
     }
 
     public static Map<String, Object> list(String API_KEY) throws IOException, ParseException {
-        String url = baseURL + "/status";
+        String url = baseURL + "/v1/list";
         Request.Builder builder = new Request.Builder().url(url).get();
 
         JSONObject postObj = new JSONObject();

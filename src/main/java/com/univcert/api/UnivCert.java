@@ -89,7 +89,7 @@ public class UnivCert {
     }
 
     public static Map<String, Object> list(String API_KEY) throws IOException, ParseException {
-        String url = baseURL + "/v1/list";
+        String url = baseURL + "/v1/certifiedlist";
         Request.Builder builder = new Request.Builder().url(url).get();
 
         JSONObject postObj = new JSONObject();

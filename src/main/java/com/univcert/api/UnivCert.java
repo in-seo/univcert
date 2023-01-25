@@ -29,11 +29,8 @@ public class UnivCert {
         Request request = builder.build();
 
         Response responseHTML = client.newCall(request).execute();
-        
-        if (responseHTML.isSuccessful() || responseHTML.code()==400)
-            return parseHTMLToJSON(responseHTML);
 
-        return new HashMap<>();
+        return parseHTMLToJSON(responseHTML);
     }
 
     public static Map<String, Object> certify(String API_KEY, String email, String universityName, boolean univ_check) throws IOException, ParseException {
@@ -52,10 +49,7 @@ public class UnivCert {
 
         Response responseHTML = client.newCall(request).execute();
 
-        if (responseHTML.isSuccessful() || responseHTML.code()==400)
-            return parseHTMLToJSON(responseHTML);
-
-        return new HashMap<>();
+        return parseHTMLToJSON(responseHTML);
     }
 
     public static Map<String, Object> certifyCode(String API_KEY, String email, String universityName, int code) throws IOException, ParseException {
@@ -74,10 +68,7 @@ public class UnivCert {
 
         Response responseHTML = client.newCall(request).execute();
 
-        if (responseHTML.isSuccessful() || responseHTML.code()==400)
-            return parseHTMLToJSON(responseHTML);
-
-        return new HashMap<>();
+        return parseHTMLToJSON(responseHTML);
     }
 
     public static Map<String, Object> status(String API_KEY, String email) throws IOException, ParseException {
@@ -94,10 +85,7 @@ public class UnivCert {
 
         Response responseHTML = client.newCall(request).execute();
 
-        if (responseHTML.isSuccessful() || responseHTML.code()==400)
-            return parseHTMLToJSON(responseHTML);
-
-        return new HashMap<>();
+        return parseHTMLToJSON(responseHTML);
     }
 
     public static Map<String, Object> list(String API_KEY) throws IOException, ParseException {
@@ -113,10 +101,10 @@ public class UnivCert {
 
         Response responseHTML = client.newCall(request).execute();
 
-        if (responseHTML.isSuccessful() || responseHTML.code()==400)
-            return parseHTMLToJSON(responseHTML);
+//        if (responseHTML.isSuccessful() || responseHTML.code()==400)
+        return parseHTMLToJSON(responseHTML);
 
-        return new HashMap<>();
+//        return new HashMap<>();
     }
 
     private static Map<String, Object> parseHTMLToJSON(Response responseHTML) throws ParseException, IOException {

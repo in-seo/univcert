@@ -125,6 +125,7 @@ public class UnivCert {
         if (body != null) {
             JSONObject response = (JSONObject) parser.parse(body.string());
             response.put("code", responseHTML.code());
+            System.out.println(response.toJSONString());
             map = new ObjectMapper().readValue(response.toJSONString(), Map.class) ;
             return map;
         }

@@ -101,10 +101,7 @@ public class UnivCert {
 
         Response responseHTML = client.newCall(request).execute();
 
-//        if (responseHTML.isSuccessful() || responseHTML.code()==400)
         return parseHTMLToJSON(responseHTML);
-
-//        return new HashMap<>();
     }
 
     private static Map<String, Object> parseHTMLToJSON(Response responseHTML) throws ParseException, IOException {

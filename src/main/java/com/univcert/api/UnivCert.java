@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ public class UnivCert {
     private static final JSONParser parser = new JSONParser();
     protected UnivCert() {}
 
-    public static Map<String, Object> checkDomain(String email, String universityName) throws IOException, ParseException {
+    public static Map<String, Object> checkDomain(String email, String universityName) throws IOException{
         String url = baseURL + "/try";
         Request.Builder builder = new Request.Builder().url(url).get();
 
@@ -33,7 +32,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
-    public static Map<String, Object> certify(String API_KEY, String email, String universityName, boolean univ_check) throws IOException, ParseException {
+    public static Map<String, Object> certify(String API_KEY, String email, String universityName, boolean univ_check) throws IOException {
         String url = baseURL + "/v1/certify";
         Request.Builder builder = new Request.Builder().url(url).get();
 
@@ -52,7 +51,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
-    public static Map<String, Object> certifyCode(String API_KEY, String email, String universityName, int code) throws IOException, ParseException {
+    public static Map<String, Object> certifyCode(String API_KEY, String email, String universityName, int code) throws IOException {
         String url = baseURL + "/v1/certifycode";
         Request.Builder builder = new Request.Builder().url(url).get();
 
@@ -71,7 +70,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
-    public static Map<String, Object> status(String API_KEY, String email) throws IOException, ParseException {
+    public static Map<String, Object> status(String API_KEY, String email) throws IOException {
         String url = baseURL + "/v1/status";
         Request.Builder builder = new Request.Builder().url(url).get();
 
@@ -88,7 +87,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
-    public static Map<String, Object> list(String API_KEY) throws IOException, ParseException {
+    public static Map<String, Object> list(String API_KEY) throws IOException {
         String url = baseURL + "/v1/certifiedlist";
         Request.Builder builder = new Request.Builder().url(url).get();
 
@@ -104,15 +103,21 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
-    private static Map<String, Object> parseHTMLToJSON(Response responseHTML) throws ParseException, IOException {
+    private static Map<String, Object> parseHTMLToJSON(Response responseHTML) {
         ResponseBody body = responseHTML.body();
         Map map = new HashMap<>();
-        if (body != null) {
-            JSONObject response = (JSONObject) parser.parse(body.string());
-            response.put("code", responseHTML.code());
-            System.out.println(response.toJSONString());
-            map = new ObjectMapper().readValue(response.toJSONString(), Map.class) ;
-            return map;
+        try{
+            if (body != null) {
+                JSONObject response = (JSONObject) parser.parse(body.string());
+                response.put("code", responseHTML.code());
+                System.out.println(response.toJSONString());
+                map = new ObjectMapper().readValue(response.toJSONString(), Map.class) ;
+                return map;
+            }
+        }
+        catch(Exception e){
+            System.out.println("json 오류");
+            return map; /** 빈 맵 **/
         }
         return map;
     }

@@ -103,7 +103,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
-    public static Map<String, Object> checkUnivName(String universityName) throws IOException {
+    public static Map<String, Object> check(String universityName) throws IOException {
         String url = baseURL + "/v1/check";
         Request.Builder builder = new Request.Builder().url(url).get();
 

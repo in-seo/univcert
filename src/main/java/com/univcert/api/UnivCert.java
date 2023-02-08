@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UnivCert {
-    private static final String baseURL = "https://univcert.com/api";
+    private static final String baseURL = "https://univcert.com:8080/api";
     private static final OkHttpClient client = new OkHttpClient();
     private static final JSONParser parser = new JSONParser();
     protected UnivCert() {}

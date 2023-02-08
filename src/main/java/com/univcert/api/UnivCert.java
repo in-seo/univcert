@@ -103,6 +103,22 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
+    public static Map<String, Object> checkUnivName(String universityName) throws IOException {
+        String url = baseURL + "/v1/check";
+        Request.Builder builder = new Request.Builder().url(url).get();
+
+        JSONObject postObj = new JSONObject();
+        postObj.put("univName", universityName);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postObj.toJSONString());
+        builder.post(requestBody);
+        Request request = builder.build();
+
+        Response responseHTML = client.newCall(request).execute();
+
+        return parseHTMLToJSON(responseHTML);
+    }
+
     private static Map<String, Object> parseHTMLToJSON(Response responseHTML) {
         ResponseBody body = responseHTML.body();
         Map map = new HashMap<>();

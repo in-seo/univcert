@@ -9,29 +9,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * https://univcert.com   메일 및 대학 인증 API.
+ * 개발자분은 해당 사이트에서 API 키 발급 후 사용 하시면 됩니다. (10초 미만 소요)
+ * https://github.com/in-seo/univcert  에 자세한 내용 있고,
+ * 잘 사용하셨다면 스타 한번 눌러주시면 큰 힘이 됩니다 ! 많이 퍼뜨려 주세요 감사합니다 :)
+ *
+ */
 public class UnivCert {
     private static final String baseURL = "https://univcert.com:8080/api";
     private static final OkHttpClient client = new OkHttpClient();
     private static final JSONParser parser = new JSONParser();
     protected UnivCert() {}
 
-    public static Map<String, Object> checkDomain(String email, String universityName) throws IOException{
-        String url = baseURL + "/try";
-        Request.Builder builder = new Request.Builder().url(url).get();
-
-        JSONObject postObj = new JSONObject();
-        postObj.put("email", email);
-        postObj.put("univName", universityName);
-
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postObj.toJSONString());
-        builder.post(requestBody);
-        Request request = builder.build();
-
-        Response responseHTML = client.newCall(request).execute();
-
-        return parseHTMLToJSON(responseHTML);
-    }
-
+    /** ✉ 이용자 메일 인증 시작 (인증코드 발송) */
     public static Map<String, Object> certify(String API_KEY, String email, String universityName, boolean univ_check) throws IOException {
         String url = baseURL + "/v1/certify";
         Request.Builder builder = new Request.Builder().url(url).get();
@@ -40,7 +31,7 @@ public class UnivCert {
         postObj.put("key", API_KEY);
         postObj.put("email", email);
         postObj.put("univName", universityName);
-        postObj.put("univ_check", univ_check); /** true -> 대학 도메인까지, false -> 단순 메일 인증만 **/
+        postObj.put("univ_check", univ_check); /** true -> 대학 도메인까지, false -> 단순 메일 인증만 */
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postObj.toJSONString());
         builder.post(requestBody);
@@ -50,7 +41,7 @@ public class UnivCert {
 
         return parseHTMLToJSON(responseHTML);
     }
-
+    /** ✅ 이용자 메일에 발송된 코드를 전달 받아 인증 받기 */
     public static Map<String, Object> certifyCode(String API_KEY, String email, String universityName, int code) throws IOException {
         String url = baseURL + "/v1/certifycode";
         Request.Builder builder = new Request.Builder().url(url).get();
@@ -59,7 +50,7 @@ public class UnivCert {
         postObj.put("key", API_KEY);
         postObj.put("email", email);
         postObj.put("univName", universityName);
-        postObj.put("code", code); /** true -> 대학 도메인까지, false -> 단순 메일 인증만 **/
+        postObj.put("code", code);
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postObj.toJSONString());
         builder.post(requestBody);
@@ -70,6 +61,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
+    /** 📂 인증된 이메일인지 확인 기능 */
     public static Map<String, Object> status(String API_KEY, String email) throws IOException {
         String url = baseURL + "/v1/status";
         Request.Builder builder = new Request.Builder().url(url).get();
@@ -87,6 +79,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
+    /** 📜 해당 API 키로 인증된 유저 리스트 출력 */
     public static Map<String, Object> list(String API_KEY) throws IOException {
         String url = baseURL + "/v1/certifiedlist";
         Request.Builder builder = new Request.Builder().url(url).get();
@@ -103,6 +96,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
+    /** ⚠️인증 가능한 대학교 명인지 체킹 */
     public static Map<String, Object> check(String universityName) throws IOException {
         String url = baseURL + "/v1/check";
         Request.Builder builder = new Request.Builder().url(url).get();
@@ -119,6 +113,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
 
+    /** 무슨 오류인지, 어떤 응답이 오는지 알고 싶으시다면 해당 클래스를 상속 및 재정의 하거나, http로 JSON요청을 직접 진행하시면 됩니다. */
     private static Map<String, Object> parseHTMLToJSON(Response responseHTML) {
         ResponseBody body = responseHTML.body();
         Map map = new HashMap<>();
@@ -133,7 +128,7 @@ public class UnivCert {
         }
         catch(Exception e){
             System.out.println("json 오류");
-            return map; /** 빈 맵 **/
+            return map; /** 빈 맵 */
         }
         return map;
     }

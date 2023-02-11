@@ -11,12 +11,12 @@ import java.util.Map;
 
 /**
  * https://univcert.com   메일 및 대학 인증 API.
- * 개발자분은 해당 사이트에서 API 키 발급 후 사용 하시면 됩니다. (10초 미만 소요)
+ * 개발자분은 해당 사이트에서 API 키 발급 후 사용 하시면 됩니다.
  * https://github.com/in-seo/univcert  에 자세한 내용 있고,
- * 잘 사용하셨다면 스타 한번 눌러주시면 큰 힘이 됩니다 ! 많이 퍼뜨려 주세요 감사합니다 :)
- *
+ * 도움이 되셨다면 스타 한번 눌러주시면 큰 힘이 됩니다. 많이 퍼뜨려 주세요 감사합니다 :)
  */
 public class UnivCert {
+    /** 모든 반환 값은 Map<String, Object>로 드립니다. 반환 값을 .get("success") 와 같은 메서드로 뽑아 쓰시면 됩니다. */
     private static final String baseURL = "https://univcert.com:8080/api";
     private static final OkHttpClient client = new OkHttpClient();
     private static final JSONParser parser = new JSONParser();
@@ -128,7 +128,7 @@ public class UnivCert {
         }
         catch(Exception e){
             System.out.println("json 오류");
-            return map; /** 빈 맵 */
+            return map; /** 오류 시 빈 맵 */
         }
         return map;
     }

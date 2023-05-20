@@ -93,6 +93,17 @@ dependencies{
 }
 ```
 
+🆕 현재 인증 된 유저목록 초기화
+
+`UnivCert.clear("key");`
+--> 하단 json 형태로 자동 변환 및 http 전송 POST(univcert.com/api/v1/clear)
+
+```
+{
+  “key” : “부여받은 API KEY”
+}
+```
+
 👼 상단 certify, certifycode 의 메서드로 대학 인증 절차를 간편하게 끝낼 수 있습니다.
 
 

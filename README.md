@@ -106,7 +106,7 @@ dependencies{
 
 📛 현재 인증 된 "특정" 유저 초기화
 
-`UnivCert.clear("key");`
+`UnivCert.clear("key", "email");`
 --> 하단 json 형태로 자동 변환 및 http 전송 POST(univcert.com/api/v1/clear/{초기화 하고 싶은 email})
 
 ```

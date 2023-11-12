@@ -82,15 +82,7 @@ public class UnivCert {
     /** 📜 해당 API 키로 인증된 유저 리스트 출력 */
     public static Map<String, Object> list(String API_KEY) throws IOException {
         String url = baseURL + "/v1/certifiedlist";
-        Request.Builder builder = new Request.Builder().url(url).get();
-
-        JSONObject postObj = new JSONObject();
-        postObj.put("key", API_KEY);
-
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postObj.toJSONString());
-        builder.post(requestBody);
-        Request request = builder.build();
-
+        Request request = makeRequest(API_KEY, url);
         Response responseHTML = client.newCall(request).execute();
 
         return parseHTMLToJSON(responseHTML);
@@ -116,6 +108,24 @@ public class UnivCert {
     /** 🆕 현재 인증 된 유저목록 초기화 */
     public static Map<String, Object> clear(String API_KEY) throws IOException {
         String url = baseURL + "/v1/clear";
+        Request request = makeRequest(API_KEY, url);
+
+        Response responseHTML = client.newCall(request).execute();
+
+        return parseHTMLToJSON(responseHTML);
+    }
+
+    /** 📛 현재 인증 된 "특정" 유저 초기화 */
+    public static Map<String, Object> clear(String API_KEY, String email) throws IOException {
+        String url = baseURL + "/v1/clear/"+email;
+        Request request = makeRequest(API_KEY, url);
+
+        Response responseHTML = client.newCall(request).execute();
+
+        return parseHTMLToJSON(responseHTML);
+    }
+
+    private static Request makeRequest(String API_KEY, String url) {
         Request.Builder builder = new Request.Builder().url(url).get();
 
         JSONObject postObj = new JSONObject();
@@ -124,10 +134,7 @@ public class UnivCert {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postObj.toJSONString());
         builder.post(requestBody);
         Request request = builder.build();
-
-        Response responseHTML = client.newCall(request).execute();
-
-        return parseHTMLToJSON(responseHTML);
+        return request;
     }
 
     /** 무슨 오류인지, 어떤 응답이 오는지 알고 싶으시다면 해당 클래스를 상속 및 재정의 하거나, http로 JSON요청을 직접 진행하시면 됩니다. */

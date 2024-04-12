@@ -83,7 +83,7 @@ dependencies{
 
 ⚠️ 인증 가능한 대학교 명인지 체킹 
 
-`UnivCert.check("universityName");`
+`UnivCert.check("univName");`
 --> 하단 json 형태로 자동 변환 및 http 전송 POST(univcert.com/api/v1/check)
 
 ```

@@ -42,7 +42,7 @@ public class UnivCert {
         return parseHTMLToJSON(responseHTML);
     }
     /** ✅ 이용자 메일에 발송된 코드를 전달 받아 인증 받기 */
-    public static Map<String, Object> certifyCode(String API_KEY, String email, String universityName, int code) throws IOException {
+    public static Map<String, Object> certifyCode(String API_KEY, String email, String universityName, String code) throws IOException {
         String url = baseURL + "/v1/certifycode";
         Request.Builder builder = new Request.Builder().url(url).get();
 

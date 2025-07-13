@@ -2,6 +2,8 @@
 
 [![](https://jitpack.io/v/in-seo/univcert.svg)](https://jitpack.io/#in-seo/univcert)
 
+### 2025.07.01 서비스 종료
+
 ## 🐣 초보자를 위한 UnivCert의 라이브러리 배포
 
 자세한 설명은 [해당 사이트](https://univcert.com/)에서도 확인하실 수 있습니다.
